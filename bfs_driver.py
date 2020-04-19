@@ -1,0 +1,45 @@
+from queue import Queue
+
+from GraphJsonClass import GraphJson, Node
+from spotify_requests import *
+
+def num_nodes(breadth: int, depth: int) -> int:
+    if breadth == 1:
+        return depth + 1
+    return (1 - breadth ** (depth + 1)) // (1 - breadth)
+
+
+# Function to print a bfs of graph
+def bfs(name: str, breadth: int, depth: int) -> dict:
+    t = token()
+    print(t)
+    graphJson = GraphJson()
+    # Clean up name
+    artist = get_artist_by_name(name, t)
+    seed = (artist['id'], artist['name'])
+    visited_ids = {seed[0]}
+    graphJson.nodes.append(Node(seed[1]).to_dict())
+    queue = Queue()
+    if depth < 1:
+        graphJson.add(seed[0], seed[1], [], breadth, visited_ids, queue)
+        return graphJson.to_dict()
+    print('seed', seed)
+    queue.put(seed)
+    while not queue.empty():
+        # Max visited_ids = breadth ^ depth
+        if len(visited_ids) >= num_nodes(breadth, depth):
+            print(len(visited_ids))
+            print(num_nodes(breadth, depth))
+            break
+        deq = queue.get()
+        artist_id = deq[0]
+        artist_name = deq[1]
+        # print(artist_name, end=' -> ')
+        related_artists = get_related_artists_by_id(artist_id, t)
+        if (len(related_artists) < breadth):
+            print("hmmm few artists")
+        print("fetched " + str(len(related_artists)))
+        # print(related_artists[:4], end='... \n')
+        # Add to graphJson
+        graphJson.add(artist_id, artist_name, related_artists, breadth, visited_ids, queue)
+    return graphJson.to_dict()
