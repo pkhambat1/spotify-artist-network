@@ -20,16 +20,17 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
     visited_ids = {seed[0]}
     graphJson.nodes.append(Node(seed[1]).to_dict())
     queue = Queue()
+    max_nodes = num_nodes(breadth, depth)
     if depth < 1:
-        graphJson.add(seed[0], seed[1], [], breadth, visited_ids, queue)
+        graphJson.add(seed[0], seed[1], [], breadth, visited_ids, queue, max_nodes)
         return graphJson.to_dict()
     print('seed', seed)
     queue.put(seed)
     while not queue.empty():
         # Max visited_ids = breadth ^ depth
-        if len(visited_ids) >= num_nodes(breadth, depth):
+        if len(visited_ids) >= max_nodes:
             print(len(visited_ids))
-            print(num_nodes(breadth, depth))
+            print(max_nodes)
             break
         deq = queue.get()
         artist_id = deq[0]
@@ -41,5 +42,5 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
         print("fetched " + str(len(related_artists)))
         # print(related_artists[:4], end='... \n')
         # Add to graphJson
-        graphJson.add(artist_id, artist_name, related_artists, breadth, visited_ids, queue)
+        graphJson.add(artist_id, artist_name, related_artists, breadth, visited_ids, queue, max_nodes)
     return graphJson.to_dict()

@@ -22,10 +22,10 @@ class GraphJson:
         return {"nodes": self.nodes, "links": self.links}
 
 
-    def add(self, artist_id: str, name: str, related_artists: list, breadth: int, visited: set, queue: Queue) -> None:
+    def add(self, artist_id: str, name: str, related_artists: list, breadth: int, visited: set, queue: Queue, num_nodes: int) -> None:
         related_nodes_count = 0
         for related_artist in related_artists:
-            if related_nodes_count >= breadth:
+            if related_nodes_count >= breadth or len(visited) >= num_nodes:
                 break
             related_artist_id = related_artist[0]
             related_artist_name = related_artist[1]

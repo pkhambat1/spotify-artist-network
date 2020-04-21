@@ -27,7 +27,7 @@ const loadGraph = (json, breadth) => {
         var extent = d3.extent(graph.nodes,
             (d, i) => depthLevel(breadth, i)
         );
-        var color = d3.scaleSequential(d3.interpolatePlasma)
+        var color = d3.scaleSequential(d3.interpolateCool)
             .domain(extent);
         var simulation = d3.forceSimulation(graph.nodes)
             .force("charge", d3.forceManyBody().strength(-4000))
@@ -93,7 +93,7 @@ const loadGraph = (json, breadth) => {
             .enter()
             .append("line")
             .attr("class", "link")
-            .attr("stroke", "rgb(170, 170, 170, 0.7)")
+            .attr("stroke", "rgb(170, 170, 170, 0.5)")
             .attr("stroke-width", () => transform ? 1 / transform.k : 1);
         var node = container.selectAll(".node")
             .attr("class", "nodes")
