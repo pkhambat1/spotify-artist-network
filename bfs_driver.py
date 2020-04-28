@@ -35,7 +35,7 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
         deq = queue.get()
         artist_id = deq[0]
         artist_name = deq[1]
-        artist_popularity = int(deq[2])
+        artist_popularity = deq[2]
         related_artists = get_related_artists_by_id(artist_id, t)
         print("fetched " + str(len(related_artists)))
         # Add to graphJson
