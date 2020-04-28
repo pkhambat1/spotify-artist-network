@@ -37,7 +37,7 @@ def get_related_artists_by_id(artist_id, token) -> list:
     artists = json['artists']
     related = []
     for artist in artists:
-        related.append((artist['id'], artist['name']))
+        related.append((artist['id'], artist['name'], artist['popularity']))
     return related
 
 def get_related_artists_by_name(artist_name, token) -> list:

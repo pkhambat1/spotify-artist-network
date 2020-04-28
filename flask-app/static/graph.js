@@ -25,9 +25,11 @@ const loadGraph = (json, breadth) => {
     d3.json(json).then(graph => {
         console.log(graph);
         var extent = d3.extent(graph.nodes,
-            (d, i) => depthLevel(breadth, i)
+            // (d, i) => depthLevel(breadth, i)
+            d => d.popularity
         );
-        var color = d3.scaleSequential(d3.interpolateCool)
+        console.log('extent', extent);
+        var color = d3.scaleSequential(d3.interpolateViridis)
             .domain(extent);
         var simulation = d3.forceSimulation(graph.nodes)
             .force("charge", d3.forceManyBody().strength(-4000))
@@ -78,14 +80,13 @@ const loadGraph = (json, breadth) => {
                 .attr('stroke-width', 1 / d3.event.transform.k);
             container.selectAll('text')
                 .style('font-size', d => d.index === 0 ? 16 / d3.event.transform.k + "px" : 12 / d3.event.transform.k + "px")
-                .attr("dx", d => d.index === 0 ? 18 / d3.event.transform.k : 12 / d3.event.transform.k)
-                .attr("dy", `${.35 / d3.event.transform.k}em`);
+                .attr("dx", d => d.index === 0 ? 18 / d3.event.transform.k : 12 / d3.event.transform.k);
             container.attr('transform', d3.event.transform);
         };
 
         var zoom = d3.zoom()
-            // .scale(1)
             .scaleExtent([.5, 3])
+            // .scaleExtent([.05, 3])
             .on("zoom", zoomed);
         svg.call(zoom);
         var link = container.selectAll(".link")
@@ -111,7 +112,8 @@ const loadGraph = (json, breadth) => {
             .attr('r', d => d.index === 0 ? (transform ? 12 / transform.k : 12) : (transform ? 6 / transform.k : 6))
             .attr("stroke", "whitesmoke")
             .attr("stroke-width", d => d.index === 0 ? (transform ? 3 / transform.k : 3) : (transform ? 1 / transform.k : 1))
-            .attr("fill", (d, i) => color(depthLevel(breadth, i)));
+            // .attr("fill", (d, i) => color(depthLevel(breadth, i)));
+            .attr("fill", d => color(+d.popularity));
         node.append("text")
             .attr("dx", d => d.index === 0 ? (transform ? 18 / transform.k : 18) : (transform ? 12 / transform.k : 12))
             .attr("dy", () => transform ? `${.35 / transform.k}em` : '.35em')

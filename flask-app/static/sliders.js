@@ -1,9 +1,10 @@
 let breadth_data = [0, 1, 2, 3, 4];
-// var depth_data = [0, 1, 2, 3, 4];
+// let breadth_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let depth_data = [0, 1, 2, 3];
+// let depth_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let slider_width = 200;
 let slider_height = 80;
-const default_breadth = 2;
+const default_breadth = 3;
 const default_depth = 2;
 const default_artist = 'Post Malone';
 

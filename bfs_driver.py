@@ -16,13 +16,13 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
     graphJson = GraphJson()
     # Clean up name
     artist = get_artist_by_name(name, t)
-    seed = (artist['id'], artist['name'])
+    seed = (artist['id'], artist['name'], artist['popularity'])
     visited_ids = {seed[0]}
-    graphJson.nodes.append(Node(seed[1]).to_dict())
+    graphJson.nodes.append(Node(artist['name'], artist['popularity']).to_dict())
     queue = Queue()
     max_nodes = num_nodes(breadth, depth)
     if depth < 1:
-        graphJson.add(seed[0], seed[1], [], breadth, visited_ids, queue, max_nodes)
+        graphJson.add(seed[0], seed[1], seed[2], [], breadth, visited_ids, queue, max_nodes)
         return graphJson.to_dict()
     print('seed', seed)
     queue.put(seed)
@@ -35,12 +35,9 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
         deq = queue.get()
         artist_id = deq[0]
         artist_name = deq[1]
-        # print(artist_name, end=' -> ')
+        artist_popularity = int(deq[2])
         related_artists = get_related_artists_by_id(artist_id, t)
-        if (len(related_artists) < breadth):
-            print("hmmm few artists")
         print("fetched " + str(len(related_artists)))
-        # print(related_artists[:4], end='... \n')
         # Add to graphJson
-        graphJson.add(artist_id, artist_name, related_artists, breadth, visited_ids, queue, max_nodes)
+        graphJson.add(artist_id, artist_name, artist_popularity, related_artists, breadth, visited_ids, queue, max_nodes)
     return graphJson.to_dict()
