@@ -20,4 +20,4 @@ def get_artist_network():
     return jsonify(bfs(artist, breadth, depth))
 
 if __name__ == '__main__':
-    app.run(port=int(os.getenv('PORT', 8000)))
+    app.run(port=int(os.getenv('PORT', 8080)))

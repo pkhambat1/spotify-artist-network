@@ -5,15 +5,15 @@ let depth_data = [0, 1, 2, 3];
 let slider_width = 200;
 let slider_height = 80;
 const default_breadth = 3;
-const default_depth = 2;
-const default_artist = 'Post Malone';
+const default_depth = 3;
+const default_artist = 'The Beatles';
 
 // Step
 var sliderStepBreadth = d3
     .sliderBottom()
     .min(d3.min(breadth_data))
     .max(d3.max(breadth_data))
-    .width(breadth_data.length * 25)
+    .width(slider_width - 60)
     .tickFormat(d3.format(''))
     .ticks(breadth_data.length)
     .step(1)
@@ -29,7 +29,7 @@ var sliderStepDepth = d3
     .sliderBottom()
     .min(d3.min(depth_data))
     .max(d3.max(depth_data))
-    .width(depth_data.length * 23)
+    .width(slider_width - 60)
     .tickFormat(d3.format(''))
     .ticks(depth_data.length)
     .step(1)
