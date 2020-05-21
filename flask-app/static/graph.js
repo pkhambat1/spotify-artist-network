@@ -6,6 +6,7 @@ var height = svg.attr('height');
 var currentZoom = 1;
 var transform = null;
 let rootPopularity;
+let selectedId;
 
 // var depthLevel = (breadth, index) => {
 //     const DEPTH_MAX = 10;
@@ -22,10 +23,13 @@ let rootPopularity;
 // };
 
 const loadGraph = (json, breadth) => {
-
-
     d3.json(json).then(graph => {
         console.log(graph);
+        let frame = d3.select('#player').select('iframe');
+        let origId = graph.nodes[0].id;
+        let embed = `https://open.spotify.com/embed/artist/${origId}`;
+        frame.attr('src', embed);
+        selectedId = origId;
         rootPopularity = graph.nodes[0].popularity;
         // console.log(rootPopularity);
         console.log(graph.nodes[0].popularity);
@@ -54,6 +58,7 @@ const loadGraph = (json, breadth) => {
             .force("link", d3.forceLink(graph.links).id(d => d.id).distance(50).strength(1))
             .on("tick", ticked);
         var reset = () => {
+            console.log('double clicked');
             svg.transition().duration(750).call(
                 zoom.transform,
                 d3.zoomIdentity,
@@ -79,7 +84,7 @@ const loadGraph = (json, breadth) => {
             );
         };
 
-        svg.on('click', reset);
+        svg.on('dblclick', reset);
         var zoomed = () => {
             transform = d3.event.transform;
             currentZoom = d3.event.transform.k;
@@ -98,8 +103,8 @@ const loadGraph = (json, breadth) => {
             .scaleExtent([.5, 1.5])
             // .scaleExtent([.05, 3])
             .on("zoom", zoomed);
-        svg.call(zoom);
-
+        svg.call(zoom)
+            .on("dblclick.zoom", null);
 
         var link = container.append('g')
             .attr('class', 'links')
@@ -111,6 +116,7 @@ const loadGraph = (json, breadth) => {
             .attr("stroke", "rgb(170, 170, 170, 0.5)")
             .attr("stroke-width", () => transform ? 1 / transform.k : 1);
 
+
         var node = container.append('g')
             .attr('class', 'nodes')
             .selectAll(".node")
@@ -120,6 +126,8 @@ const loadGraph = (json, breadth) => {
             .append("g")
             .attr('class', 'node')
             .attr('id', d => d.id);
+
+        // .on('mouseover', focus)
         // .call(
         //     d3.drag()
         //         .on("start", dragstarted)
@@ -133,13 +141,16 @@ const loadGraph = (json, breadth) => {
             .attr("stroke-width", d => d.index === 0 ? (transform ? 3 / transform.k : 3) : (transform ? 1 / transform.k : 1))
             // .attr("fill", (d, i) => color(depthLevel(breadth, i)));
             .attr("fill", d => color(d.popularity));
+        d3.select(`g.node[id="${origId}"]`).select('circle').style('stroke', 'tomato');
+
         node.append("text")
             .attr("dx", d => d.index === 0 ? (transform ? 18 / transform.k : 18) : (transform ? 12 / transform.k : 12))
             .attr("dy", () => transform ? `${.35 / transform.k}em` : '.35em')
             .attr("font-size", d => d.index === 0 ? (transform ? 16 / transform.k : 16) : (transform ? 12 / transform.k : 12))
             .attr("font-family", "sans-serif")
             .attr("font-weight", d => d.index === 0 ? 700 : 300)
-            .text(d => d.id);
+            .text(d => d.name);
+
         var polygon = container.append('g')
             .attr('class', 'polygons')
             // .selectAll("polygon.polygon")
@@ -148,10 +159,31 @@ const loadGraph = (json, breadth) => {
             .enter()
             .append('polygon')
             .attr('class', 'polygon')
-            .on("mouseover", focus);
+            .on("mouseover", focus)
+            .on('click', getPlayer);
 
-        svg.on('mouseout', unfocus);
+        // .on('click', selectArtist);
+
+        function getPlayer() {
+            var src = d3.select(d3.event.target).datum().id;
+            selectedId = src;
+            let artistId = src;
+            embed = `https://open.spotify.com/embed/artist/${artistId}`;
+            frame.attr('src', embed);
+            console.log(d3.select(`g.node[id="${src}"]`));
+            d3.select(`g.node[id="${src}"]`).select('circle').style('stroke', 'tomato')
+        }
+
+        svg.selectAll('*').on('mouseout', unfocus);
         drawLegend();
+
+        function selectArtist() {
+            var src = d3.select(d3.event.target).datum().id;
+            d3.select(`g.node[id="${src}"]`).raise();
+            node.select('circle')
+                .transition()
+                .style('stroke', o => src === o.id ? 'red' : '')
+        }
 
         function focus() {
             var src = d3.select(d3.event.target).datum().id;
@@ -161,7 +193,7 @@ const loadGraph = (json, breadth) => {
                 .style("opacity", o => neigh(src, o.id) ? 1 : 0.5);
             node.select('circle')
                 .transition()
-                .style('stroke', o => o.id === src ? 'red' : '');
+                .style('stroke', o => o.id === src ? 'red' : o.id === selectedId ? 'tomato' : '');
             link
                 .transition()
                 .style("opacity", o => o.source.id === src || o.target.id === src ? 1 : 0.5)
@@ -174,7 +206,7 @@ const loadGraph = (json, breadth) => {
                 .style("opacity", '1');
             node.select('circle')
                 .transition()
-                .style('stroke', 'whitesmoke');
+                .style('stroke', (o) => o.id === selectedId ? 'tomato' : 'whitesmoke');
             link
                 .transition()
                 .style("opacity", '1')
