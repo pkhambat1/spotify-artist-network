@@ -1,0 +1,69 @@
+body {
+    background-color: black;
+}
+
+p, h1, h2, h3, h4, h5, small, i {
+    color: whitesmoke;
+}
+
+/*.node circle {*/
+/*    stroke: white;*/
+/*    stroke-width: 1px;*/
+/*}*/
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+line.track {
+    stroke: black;
+}
+
+g.slider text {
+    fill: white;
+}
+
+/*g.tick line {*/
+/*    stroke: whitesmoke;*/
+/*}*/
+
+label {
+    color: white;
+}
+
+#slider-step-breadth, #slider-step-depth {
+    outline: none;
+}
+
+#viz {
+    background-color: black;
+}
+
+#viz text {
+    text-shadow: 0 1px 0 black, 0 -1px 0 black, 1px 0 0 black, -1px 0 0 black;
+    fill: whitesmoke;
+    /*text-shadow: 0 1px 0 white, 0 -1px 0 white, 1px 0 0 white, -1px 0 0 white;*/
+    /*fill: black;*/
+}
+
+.selected {
+    stroke: red;
+}
+
+.polygon {
+    fill: rgba(0, 0, 0, 0);
+    stroke: none;
+    /*stroke: red;*/
+}
+
+#legend path.domain, #legend g.tick line {
+    stroke: white;
+}
+
+text.axis-title {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

@@ -1,24 +1,25 @@
-let breadth_data = [0, 1, 2, 3, 4];
+let breadthData = [0, 1, 2, 3, 4];
 // let breadth_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-let depth_data = [0, 1, 2, 3];
+let depthData = [0, 1, 2, 3];
 // let depth_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-let slider_width = 200;
-let slider_height = 80;
-const default_breadth = 3;
-const default_depth = 3;
-const default_artist = 'The Beatles';
+let sliderWidth = 180;
+let sliderHeight = 50;
+const defaultBreadth = 3;
+const defaultDepth = 2;
+const defaultArtist = 'The Beatles';
 
 // Step
 var sliderStepBreadth = d3
     .sliderBottom()
-    .min(d3.min(breadth_data))
-    .max(d3.max(breadth_data))
-    .width(slider_width - 60)
+    .min(d3.min(breadthData))
+    .max(d3.max(breadthData))
+    .width(sliderWidth - 60)
     .tickFormat(d3.format(''))
-    .ticks(breadth_data.length)
+    .ticks(breadthData.length)
     .step(1)
-    .default(default_breadth)
-        .handle(d3.symbol()
+    .fill('#1DB954')
+    .default(defaultBreadth)
+    .handle(d3.symbol()
         .type(d3.symbolCircle)
         .size(200)()
     )
@@ -31,13 +32,14 @@ var sliderStepBreadth = d3
 
 var sliderStepDepth = d3
     .sliderBottom()
-    .min(d3.min(depth_data))
-    .max(d3.max(depth_data))
-    .width(slider_width - 60)
+    .min(d3.min(depthData))
+    .max(d3.max(depthData))
+    .width(sliderWidth - 60)
     .tickFormat(d3.format(''))
-    .ticks(depth_data.length)
+    .ticks(depthData.length)
     .step(1)
-    .default(default_depth)
+    .fill('#1DB954')
+    .default(defaultDepth)
     .handle(d3.symbol()
         .type(d3.symbolCircle)
         .size(200)()
@@ -52,18 +54,18 @@ var sliderStepDepth = d3
 var gStepBreadth = d3
     .select('div#slider-step-breadth')
     .append('svg')
-    .attr('width', slider_width)
-    .attr('height', slider_height)
+    .attr('width', sliderWidth)
+    .attr('height', sliderHeight)
     .append('g')
-    .attr('transform', 'translate(30,30)');
+    .attr('transform', 'translate(10,10)');
 
 var gStepDepth = d3
     .select('div#slider-step-depth')
     .append('svg')
-    .attr('width', slider_width)
-    .attr('height', slider_height)
+    .attr('width', sliderWidth)
+    .attr('height', sliderHeight)
     .append('g')
-    .attr('transform', 'translate(30,30)');
+    .attr('transform', 'translate(10,10)');
 
 gStepBreadth.call(sliderStepBreadth);
 gStepDepth.call(sliderStepDepth);
