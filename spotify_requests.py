@@ -81,6 +81,17 @@ def get_artist_by_name(name, token) -> dict:
         return {}
     return json['artists']['items'][0]
 
+def get_all_artists_by_name(name, token) -> dict:
+    url = f"https://api.spotify.com/v1/search?q={name}&type=artist"
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {token}'
+    }
+    response = requests.request("GET", url, headers=headers)
+    json = response.json()
+    return json['artists']['items']
+
 def get_artist_id(artist, token) -> str:
     url = f"https://api.spotify.com/v1/search?q={artist}&type=artist"
     headers = {

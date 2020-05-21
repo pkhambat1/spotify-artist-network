@@ -18,6 +18,10 @@ var sliderStepBreadth = d3
     .ticks(breadth_data.length)
     .step(1)
     .default(default_breadth)
+        .handle(d3.symbol()
+        .type(d3.symbolCircle)
+        .size(200)()
+    )
     .on('onchange', val => {
         var artist = $('input#artist').val();
         var depth = d3.select('#value-step-depth').text();
@@ -34,6 +38,10 @@ var sliderStepDepth = d3
     .ticks(depth_data.length)
     .step(1)
     .default(default_depth)
+    .handle(d3.symbol()
+        .type(d3.symbolCircle)
+        .size(200)()
+    )
     .on('onchange', val => {
         var artist = $('input#artist').val();
         var breadth = d3.select('#value-step-breadth').text();

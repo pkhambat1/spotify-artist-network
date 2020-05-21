@@ -25,6 +25,7 @@ const loadGraph = (json, breadth) => {
 
 
     d3.json(json).then(graph => {
+        console.log(graph);
         rootPopularity = graph.nodes[0].popularity;
         // console.log(rootPopularity);
         console.log(graph.nodes[0].popularity);
@@ -117,7 +118,8 @@ const loadGraph = (json, breadth) => {
             .enter()
             // .call(() => zoomed)
             .append("g")
-            .attr('class', 'node');
+            .attr('class', 'node')
+            .attr('id', d => d.id);
         // .call(
         //     d3.drag()
         //         .on("start", dragstarted)
@@ -151,20 +153,18 @@ const loadGraph = (json, breadth) => {
         svg.on('mouseout', unfocus);
         drawLegend();
 
-        // node.on("mouseover", focus).on("mouseout", unfocus);
-
         function focus() {
             var src = d3.select(d3.event.target).datum().id;
-            console.log(d3.select(this));
-            // node
-            //     .transition()
-            //     .style("opacity", o => neigh(src, o.id) ? 1 : 0.2);
+            d3.select(`g.node[id="${src}"]`).raise();
+            node
+                .transition()
+                .style("opacity", o => neigh(src, o.id) ? 1 : 0.5);
             node.select('circle')
                 .transition()
                 .style('stroke', o => o.id === src ? 'red' : '');
             link
                 .transition()
-                // .style("opacity", o => o.source.id === src || o.target.id === src ? 1 : 0.2)
+                .style("opacity", o => o.source.id === src || o.target.id === src ? 1 : 0.5)
                 .style('stroke', o => o.source.id === src || o.target.id === src ? 'red' : '');
         }
 
