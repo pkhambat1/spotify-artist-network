@@ -8,7 +8,6 @@ backports.shutil-get-terminal-size==1.0.0
 backports.shutil-which==3.5.1
 bdist-mpkg==0.5.0
 beautifulsoup4==4.6.0
-bonjour-py==0.3
 boto3==1.13.16
 botocore==1.16.16
 bs4==0.0.1
