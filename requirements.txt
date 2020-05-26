@@ -84,7 +84,6 @@ pylint-django==0.9.4
 pylint-flask==0.5
 pylint-plugin-utils==0.2.6
 PyMySQL==0.9.3
-pyobjc-core==2.5.1
 pyobjc-framework-Accounts==2.5.1
 pyobjc-framework-AddressBook==2.5.1
 pyobjc-framework-AppleScriptKit==2.5.1
