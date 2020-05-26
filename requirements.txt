@@ -97,7 +97,6 @@ PyYAML==3.13
 render50==3.0.1
 requests==2.23.0
 requests-oauthlib==0.8.0
-scipy==0.13.0b1
 singledispatch==3.4.0.3
 six==1.11.0
 spotipy==2.9.0
