@@ -35,7 +35,7 @@ const loadGraph = (json, breadth, depth) => {
         // console.log(graph);
         let origId = graph.nodes[0].id;
         let embed = `https://open.spotify.com/embed/artist/${origId}`;
-        frame.attr('embed', embed);
+        frame.attr('src', embed);
         selectedId = origId;
         rootPopularity = graph.nodes[0].popularity;
         var extent = d3.extent(
