@@ -26,4 +26,4 @@ def get_artists():
     return jsonify(get_artist_list(name))
 
 if __name__ == '__main__':
-    app.run(port=int(os.getenv('PORT', 8080)))
+    app.run()
