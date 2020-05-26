@@ -1,7 +1,5 @@
-let breadthData = [0, 1, 2, 3, 4];
-// let breadth_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let breadthData = [0, 1, 2, 3];
 let depthData = [0, 1, 2, 3];
-// let depth_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let sliderWidth = 180;
 let sliderHeight = 50;
 const defaultBreadth = 3;
@@ -15,7 +13,7 @@ var sliderStepBreadth = d3
     .max(d3.max(breadthData))
     .width(sliderWidth - 60)
     .tickFormat(d3.format(''))
-    .ticks(breadthData.length)
+    .ticks(breadthData.length - 1)
     .step(1)
     .fill('#1DB954')
     .default(defaultBreadth)
@@ -36,7 +34,7 @@ var sliderStepDepth = d3
     .max(d3.max(depthData))
     .width(sliderWidth - 60)
     .tickFormat(d3.format(''))
-    .ticks(depthData.length)
+    .ticks(depthData.length - 1)
     .step(1)
     .fill('#1DB954')
     .default(defaultDepth)

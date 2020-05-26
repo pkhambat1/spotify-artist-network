@@ -1,5 +1,4 @@
 // Network Graph
-
 var svg = d3.select("#viz");
 svg.on('mouseover', () => {
     svg.style('cursor', 'move');
@@ -106,7 +105,7 @@ const loadGraph = (json, breadth, depth) => {
         };
 
         var zoom = d3.zoom()
-            .scaleExtent([.5, 1.5])
+            .scaleExtent([.5, 2])
             // .scaleExtent([.05, 3])
             .on("zoom", zoomed);
         svg.call(zoom)
@@ -240,7 +239,7 @@ const loadGraph = (json, breadth, depth) => {
         function drawLegend() {
             const x = d3.scaleLinear()
                 .domain([0, 100])
-                .rangeRound([600, 860]);
+                .rangeRound([740, 860]);
 
             const g = svg.append("g")
                 .attr("class", "key")
