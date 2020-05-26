@@ -6,12 +6,12 @@ svg.on('mouseover', () => {
 let currentSelection = d3.select('span#currentSelection').select('strong');
 var width = svg.attr('width');
 var height = svg.attr('height');
+let frame = d3.select('#player').select('iframe');
 var currentZoom = 1;
 var transform = null;
 let rootPopularity;
 let selectedId;
-// let selectedGreen = '#5CDB94';
-let selectedGreen = 'red';
+let selectedColor = 'red';
 let artistText = d3.select('span#artistText').select('strong');
 let breadthText = d3.select('span#breadthText').select('strong');
 let depthText = d3.select('span#depthText').select('strong');
@@ -33,10 +33,9 @@ const loadGraph = (json, breadth, depth) => {
             .domain([20, 40, 60, 80])
             .range(plasma);
         // console.log(graph);
-        let frame = d3.select('#player').select('iframe');
         let origId = graph.nodes[0].id;
         let embed = `https://open.spotify.com/embed/artist/${origId}`;
-        frame.attr('src', embed);
+        frame.attr('embed', embed);
         selectedId = origId;
         rootPopularity = graph.nodes[0].popularity;
         var extent = d3.extent(
@@ -106,7 +105,6 @@ const loadGraph = (json, breadth, depth) => {
 
         var zoom = d3.zoom()
             .scaleExtent([.5, 2])
-            // .scaleExtent([.05, 3])
             .on("zoom", zoomed);
         svg.call(zoom)
             .on("dblclick.zoom", null);
@@ -137,7 +135,6 @@ const loadGraph = (json, breadth, depth) => {
             .attr("stroke", "lightgray")
             .attr("stroke-width", d => d.index === 0 ? (transform ? 3 / transform.k : 3) : (transform ? 1.5 / transform.k : 1.5))
             .attr("fill", d => color(d.popularity));
-        d3.select(`g.node[id="${origId}"]`).select('circle').style('stroke', selectedGreen);
 
         node.append("text")
             .attr("dx", d => d.index === 0 ? (transform ? 18 / transform.k : 18) : (transform ? 14 / transform.k : 14))
@@ -147,6 +144,10 @@ const loadGraph = (json, breadth, depth) => {
             .attr("font-weight", d => d.index === 0 ? 700 : 300)
             .text(d => d.name);
 
+        let rootNode = d3.select(`g.node[id="${origId}"]`);
+        rootNode.select('circle').style('stroke', selectedColor);
+        rootNode.select('text').style('fill', selectedColor);
+
         var polygon = container.append('g')
             .attr('class', 'polygons')
             .selectAll('polygon.polygon')
@@ -155,42 +156,41 @@ const loadGraph = (json, breadth, depth) => {
             .append('polygon')
             .attr('class', 'polygon')
             .on("mouseover", focus)
-            .on('click', getPlayer);
+            .on('click', selectArtist);
 
-        function getPlayer() {
+        function selectArtist() {
             var src = d3.select(d3.event.target).datum().id;
             var name = d3.select(d3.event.target).datum().name;
             currentSelection.text(name);
-            d3.select(`g.node[id="${selectedId}"]`).select('circle').style('stroke', '');
             selectedId = src;
+            console.log(selectedId);
             embed = `https://open.spotify.com/embed/artist/${src}`;
             frame.attr('src', embed);
-            d3.select(`g.node[id="${selectedId}"]`).select('circle').style('stroke', selectedGreen);
+
+            node.select('text')
+                .transition()
+                .style("fill", o => o.id === selectedId ? selectedColor : 'whitesmoke');
+
+            node.select('circle')
+                .transition()
+                .style('stroke', o => o.id === selectedId ? selectedColor : 'whitesmoke');
         }
 
         drawLegend();
 
         svg.selectAll('*').on('mouseout', unfocus);
 
-        function selectArtist() {
-            var src = d3.select(d3.event.target).datum().id;
-            d3.select(`g.node[id="${src}"]`).raise();
-            node.select('circle')
-                .transition()
-                .style('stroke', o => src === o.id ? 'red' : '')
-        }
-
         function focus() {
             var src = d3.select(d3.event.target).datum().id;
             d3.select(`g.node[id="${src}"]`).raise();
             node.select('text')
                 .transition()
-                .style("opacity", o => neigh(src, o.id) ? 1 : 0.15);
+                .style("opacity", o => neigh(src, o.id) || o.id === selectedId ? 1 : 0.15);
 
             node.select('circle')
                 .transition()
                 // .style("opacity", o => neigh(src, o.id) ? 1 : 0.4)
-                .style('stroke', o => o.id === selectedId ? selectedGreen : o.id === src ? 'red' : 'whitesmoke');
+                .style('stroke', o => o.id === selectedId || o.id === src ? selectedColor : 'whitesmoke');
             link
                 .transition()
                 .style("opacity", o => o.source.id === src || o.target.id === src ? 1 : 0.5)
@@ -200,10 +200,11 @@ const loadGraph = (json, breadth, depth) => {
         function unfocus() {
             node.select('circle')
                 .transition()
-                .style('stroke', o => o.id !== selectedId ? 'whitesmoke' : selectedGreen)
+                .style('stroke', o => o.id !== selectedId ? 'whitesmoke' : selectedColor)
                 .style('opacity', 1);
             node.select('text')
                 .transition()
+                // .style('fill', o => o.id !== selectedId ? 'whitesmoke' : selectedColor)
                 .style('opacity', 1);
             link
                 .transition()
@@ -276,4 +277,5 @@ const loadGraph = (json, breadth, depth) => {
         }
     });
 };
+
 

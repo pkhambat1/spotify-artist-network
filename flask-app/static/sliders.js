@@ -1,5 +1,5 @@
-let breadthData = [0, 1, 2, 3];
-let depthData = [0, 1, 2, 3];
+let breadthData = d3.range(5);
+let depthData = d3.range(4);
 let sliderWidth = 180;
 let sliderHeight = 50;
 const defaultBreadth = 3;
