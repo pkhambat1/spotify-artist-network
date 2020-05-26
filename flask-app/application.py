@@ -1,4 +1,3 @@
-import os
 from bfs_driver import bfs, get_artist_list
 
 from flask import Flask, render_template, request, jsonify
