@@ -1,2 +1,2 @@
-python application.py
+python app.py
 
