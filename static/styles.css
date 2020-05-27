@@ -37,10 +37,6 @@ label {
     outline: none;
 }
 
-#viz {
-    background-color: black;
-}
-
 #viz text {
     text-shadow: 0 1px 0 black, 0 -1px 0 black, 1px 0 0 black, -1px 0 0 black;
     fill: whitesmoke;

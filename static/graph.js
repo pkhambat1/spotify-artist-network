@@ -64,15 +64,16 @@ const loadGraph = (json, breadth, depth) => {
             );
         };
         svg.selectAll("g.container,g#legend").remove();
-
+        var borderThk = 1;
         var borderPath = svg.append("rect")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("height", height)
-            .attr("width", width)
-            .style("stroke", 'rgb(98, 98, 98)')
+            .attr("x", borderThk / 2)
+            .attr("y", borderThk / 2)
+            .attr("height", height - borderThk)
+            .attr("width", width - borderThk)
+            .style("stroke", 'grey')
             .style("fill", "none")
-            .style("stroke-width", '3px');
+            .style("stroke-width", `${borderThk}px`)
+            .attr('rx', 5);
 
         var container = svg
             .append("g")
@@ -200,11 +201,9 @@ const loadGraph = (json, breadth, depth) => {
         function unfocus() {
             node.select('circle')
                 .transition()
-                .style('stroke', o => o.id !== selectedId ? 'whitesmoke' : selectedColor)
                 .style('opacity', 1);
             node.select('text')
                 .transition()
-                // .style('fill', o => o.id !== selectedId ? 'whitesmoke' : selectedColor)
                 .style('opacity', 1);
             link
                 .transition()
@@ -258,7 +257,6 @@ const loadGraph = (json, breadth, depth) => {
                 .attr("x", d => x(d[0]))
                 .attr("width", d => x(d[1]) - x(d[0]))
                 .attr("fill", d => color(d[0]));
-
             g.append("text")
                 .attr("class", "caption")
                 .attr("x", x.range()[0])

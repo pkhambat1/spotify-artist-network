@@ -1,13 +1,14 @@
 import json
-# from config import SPOTIFY_CLIENT_AUTH
+from config import SPOTIFY_CLIENT_AUTH
 import os
 import requests
 def token() -> str:
-    # os.environ['SPOTIFY_CLIENT_AUTH'] = SPOTIFY_CLIENT_AUTH
+    os.environ['SPOTIFY_CLIENT_AUTH'] = SPOTIFY_CLIENT_AUTH
     url = "https://accounts.spotify.com/api/token"
     data = {'grant_type': 'client_credentials'}
     headers = {
-        'Authorization': f"Basic {os.environ['SPOTIFY_CLIENT_AUTH']}",
+        'Authorization': f"Basic {SPOTIFY_CLIENT_AUTH}",
+
     }
     response = requests.request("POST", url, headers=headers, data=data)
     print(response)
