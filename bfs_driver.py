@@ -3,17 +3,14 @@ from queue import Queue
 from GraphJsonClass import GraphJson, Node
 from spotify_requests import *
 
-t = token()
-
 def num_nodes(breadth: int, depth: int) -> int:
     if breadth == 1:
         return depth + 1
     return (1 - breadth ** (depth + 1)) // (1 - breadth)
 
-
 # Function to print a bfs of graph
 def bfs(name: str, breadth: int, depth: int) -> dict:
-    print(t)
+    t = token()
     graphJson = GraphJson()
     # Clean up name
     artist = get_artist_by_name(name, t)
@@ -41,6 +38,3 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
         # Add to graphJson
         graphJson.add(artist_id, artist_name, related_artists, breadth, visited_ids, queue, max_nodes)
     return graphJson.to_dict()
-
-def get_artist_list(name: str):
-    return get_all_artists_by_name(name, t)
