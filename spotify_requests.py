@@ -3,7 +3,6 @@ import json
 import os
 import requests
 def token() -> str:
-    # os.environ['SPOTIFY_CLIENT_AUTH'] = SPOTIFY_CLIENT_AUTH
     url = "https://accounts.spotify.com/api/token"
     data = {'grant_type': 'client_credentials'}
     headers = {

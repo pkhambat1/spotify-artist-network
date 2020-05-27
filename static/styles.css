@@ -1,5 +1,13 @@
+html {
+    height: 100%;
+}
 body {
-    background-color: black;
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /*background-color: black;*/
+    background-image: linear-gradient(315deg, #18011a 0%, #011321 74%);
 }
 
 p, h1, h2, h3, h4, h5, small, i {
