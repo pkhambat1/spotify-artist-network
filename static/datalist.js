@@ -21,16 +21,15 @@ input.on('input', function () {
                 return;
             }
             dataList.empty();
-            data.forEach((item) => {
+            data.forEach(item => {
                 // Create a new <option> element.
                 var option = document.createElement('option');
                 // Set the value using the item in the JSON array.
                 option.value = item.name;
-                // Add the <option> element to the <datalist>.
                 dataList.append(option);
             });
         }).catch(function (e) {
             console.log("Err", e);
         });
-    }, 500);
+    }, 250);
 });
