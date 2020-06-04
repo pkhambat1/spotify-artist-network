@@ -7,7 +7,7 @@ def token() -> str:
     data = {'grant_type': 'client_credentials'}
     headers = {
         'Authorization': f"Basic {os.environ['SPOTIFY_CLIENT_AUTH']}",
-
+        # 'Authorization': f"Basic {SPOTIFY_CLIENT_AUTH}",
     }
     response = requests.request("POST", url, headers=headers, data=data)
     print(response)
