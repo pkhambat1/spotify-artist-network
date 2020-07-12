@@ -1,5 +1,5 @@
 import json
-from config import SPOTIFY_CLIENT_AUTH
+# from config import SPOTIFY_CLIENT_AUTH
 import os
 import requests
 def token() -> str:
