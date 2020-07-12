@@ -19,7 +19,8 @@ def bfs(name: str, breadth: int, depth: int) -> dict:
     print('artist', artist)
     seed = (artist['id'], artist['name'])
     visited_ids = {seed[0]}
-    graphJson.nodes.append(Node(artist['id'], artist['name'], artist['popularity'], artist['images'][0]).to_dict())
+    image = '' if not artist['images'] else artist['images'][0]
+    graphJson.nodes.append(Node(artist['id'], artist['name'], artist['popularity'], image).to_dict())
     queue = Queue()
     max_nodes = num_nodes(breadth, depth)
     if depth < 1:
