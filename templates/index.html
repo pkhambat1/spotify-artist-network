@@ -70,9 +70,10 @@
                         id="depthText"><strong>3</strong></span>.
             </small>
         </div>
-        <div class="col-md-3 col-12">
+        <div class="col-md-3 col-12 text-center">
             <small>Current Selection: </small>
-            <p><span id="currentSelection"><strong>The Beatles</strong></span></p>
+            <br/>
+            <p><span id="currentSelection" style="font-size: 20px"><strong>The Beatles</strong></span></p>
         </div>
 
     </div>
@@ -81,11 +82,13 @@
             <svg height="600" id='viz' width="960"></svg>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-3 col-12">
-            <div class="row">
-                <div class="col-6 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-auto mb-5">
                     <img id="image" src="static/img/artist-profile.jpeg" alt="" style="border: 2px solid grey; border-radius:200px;width:200px;height:200px;object-fit: cover;">
                 </div>
-                <div id="player" class="form-group col-12">
+            </div>
+            <div class="row justify-content-center">
+                <div id="player" class="col-auto">
                     <iframe height="350" style="border-radius: 5px;border:1.5px solid grey" width="300"
                             frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
