@@ -7,6 +7,7 @@ let currentSelection = d3.select('span#currentSelection').select('strong');
 var width = svg.attr('width');
 var height = svg.attr('height');
 let frame = d3.select('#player').select('iframe');
+let image = d3.select('img#image')
 var currentZoom = 1;
 var transform = null;
 let rootPopularity;
@@ -34,12 +35,14 @@ const loadGraph = (json, breadth, depth) => {
                     .range(plasma);
                 console.log(graph);
                 let origId = graph.nodes[0].id;
+                rootPopularity = graph.nodes[0].popularity;
                 if (origId !== selectedId) {
                     let embed = `https://open.spotify.com/embed/artist/${origId}`;
+                    image.attr('src', graph.nodes[0].image.url);
+                    image.style('border', '2px solid ' + color(rootPopularity))
                     frame.attr('src', embed);
                     selectedId = origId;
                 }
-                rootPopularity = graph.nodes[0].popularity;
                 var extent = d3.extent(
                     graph.nodes, d => d.popularity
                     // [0, 100]
@@ -167,6 +170,8 @@ const loadGraph = (json, breadth, depth) => {
                         return;
                     }
                     var name = d3.select(d3.event.target).datum().name;
+                    var popularity = d3.select(d3.event.target).datum().popularity;
+                    var imgSrc = d3.select(d3.event.target).datum().image.url;
                     currentSelection.text(name);
                     selectedId = src;
                     console.log(selectedId);
@@ -179,6 +184,8 @@ const loadGraph = (json, breadth, depth) => {
                     node.select('circle')
                         .transition()
                         .style('stroke', o => o.id === selectedId ? selectedColor : 'whitesmoke');
+                    console.log('pop', popularity)
+                    image.attr('src', imgSrc).style('border', '2px solid ' + color(popularity));
                 }
 
                 drawLegend();

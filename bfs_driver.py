@@ -13,13 +13,13 @@ def num_nodes(breadth: int, depth: int) -> int:
 # Function to print a bfs of graph
 def bfs(name: str, breadth: int, depth: int) -> dict:
     t = token()
-    print(t)
     graphJson = GraphJson()
     # Clean up name
     artist = get_artist_by_name(name, t)
-    seed = (artist['id'], artist['name'], artist['popularity'])
+    print('artist', artist)
+    seed = (artist['id'], artist['name'])
     visited_ids = {seed[0]}
-    graphJson.nodes.append(Node(artist['id'], artist['name'], artist['popularity']).to_dict())
+    graphJson.nodes.append(Node(artist['id'], artist['name'], artist['popularity'], artist['images'][0]).to_dict())
     queue = Queue()
     max_nodes = num_nodes(breadth, depth)
     if depth < 1:

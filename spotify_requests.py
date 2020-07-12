@@ -1,13 +1,13 @@
 import json
-# from config import SPOTIFY_CLIENT_AUTH
+from config import SPOTIFY_CLIENT_AUTH
 import os
 import requests
 def token() -> str:
     url = "https://accounts.spotify.com/api/token"
     data = {'grant_type': 'client_credentials'}
     headers = {
-        'Authorization': f"Basic {os.environ['SPOTIFY_CLIENT_AUTH']}",
-        # 'Authorization': f"Basic {SPOTIFY_CLIENT_AUTH}",
+        # 'Authorization': f"Basic {os.environ['SPOTIFY_CLIENT_AUTH']}",
+        'Authorization': f"Basic {SPOTIFY_CLIENT_AUTH}",
     }
     response = requests.request("POST", url, headers=headers, data=data)
     print(response)
@@ -36,7 +36,7 @@ def get_related_artists_by_id(artist_id, token) -> list:
     artists = json['artists']
     related = []
     for artist in artists:
-        related.append((artist['id'], artist['name'], artist['popularity']))
+        related.append((artist['id'], artist['name'], artist['popularity'], artist['images'][0]))
     return related
 
 def get_related_artists_by_name(artist_name, token) -> list:
