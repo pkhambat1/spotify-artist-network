@@ -1,6 +1,6 @@
 import json
 # from config import SPOTIFY_CLIENT_AUTH
-import osg
+import os
 import requests
 def token() -> str:
     url = "https://accounts.spotify.com/api/token"
