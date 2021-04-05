@@ -131,6 +131,6 @@ urllib3==1.22
 virtualenv==16.0.0
 virtualenv-clone==0.5.4
 webencodings==0.5.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 wrapt==1.10.11
 zipp==3.1.0
