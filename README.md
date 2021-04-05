@@ -83,17 +83,17 @@ I saw this as an opportunity to create an entire network of similar artists and 
 
 The core algorithm is a simple breadth first search that originates at the seed (artist of your choice) and iteratively finds similar artists for each artist next in queue.
 
-[![Product Name Screen Shot][product-screenshot]](https://resumio.herokuapp.com/dashboard)
+[![Product Name Screen Shot][product-screenshot]](http://spotify-artists-network.herokuapp.com)
 
 The network graph is fully interactive. It will respond to zoom, pan, select and resize. The breadth and depth sliders allow to to modify the shape of your search. The artist's popularity, determined by active monthly listeners is encoded by color (refer key to top right of visualization).
 
 One awesome feature is the tiny Spotify media player window that allows the user to hear teh selected artists' music on the website itself.
 
-[![Product Name Screen Shot][product-screenshot2]](https://resumio.herokuapp.com/dashboard)
+[![Product Name Screen Shot][product-screenshot2]](http://spotify-artists-network.herokuapp.com)
 
 The search box is designed to be user friendly and intuitive with live autocomplete suggestions for Spotify artists.
 
-[![Product Name Screen Shot][product-screenshot3]](https://resumio.herokuapp.com/dashboard)
+[![Product Name Screen Shot][product-screenshot3]](http://spotify-artists-network.herokuapp.com)
 
 ### Built With
 
@@ -120,7 +120,7 @@ To get a local copy up and running follow these simple steps.
 1. Clone the repo
 
 ```sh
-git clone https://github.com/pezzlex/resumio.git
+git clone https://github.com/pkhambat1/spotify-artist-network.git
 ```
 
 2. Enter your secret information in `config.py`
@@ -171,7 +171,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Pezanne Khambatta - [Email](pezanne_khambatta@brown.edu) - pezanne_khambatta@brown.edu
 
-Project Link: [https://github.com/pezzlex/resumio.git](https://github.com/pezzlex/resumio.git)
+Project Link: [https://github.com/pkhambat1/spotify-artist-network.git](https://github.com/pkhambat1/spotify-artist-network.git)
 
 <!-- ACKNOWLEDGEMENTS -->
 
@@ -181,13 +181,12 @@ Project Link: [https://github.com/pezzlex/resumio.git](https://github.com/pezzle
 - D3 Voronoi (and actual guidance) - [Sophie Engle](https://bl.ocks.org/sjengle/2e58e83685f6d854aa40c7bc546aeb24)
 - Project Feedback and Suggestions - [Jake Zhong](https://github.com/jakezhong)
 - README template - [othneildrew](https://github.com/othneildrew/Best-README-Template)
-- License - [MIT License](https://github.com/pezzlex/resumio/blob/master/LICENSE.txt)
+- License - [MIT License](https://github.com/pezzlex/spotify-artist-network/blob/master/LICENSE.txt)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/pezzlex/resumio/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
 [forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
