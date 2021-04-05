@@ -57,7 +57,7 @@ ipython-genutils==0.2.0
 isort==4.3.4
 itsdangerous==0.24
 jellyfish==0.8.2
-Jinja2==2.10
+Jinja2==2.11.3
 jmespath==0.10.0
 jsbeautifier==1.6.14
 jsonschema==2.6.0
