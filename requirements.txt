@@ -96,7 +96,7 @@ pylint-flask==0.5
 pylint-plugin-utils==0.2.6
 PyMySQL==0.9.3
 pyparsing==2.0.1
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 Pyphen==0.9.4
 Pypubsub==4.0.0
 python-dateutil==2.8.1
