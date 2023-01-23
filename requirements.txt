@@ -113,7 +113,7 @@ selenium==3.141.0
 singledispatch==3.4.0.3
 six==1.11.0
 soupsieve==1.9.4
-spotipy==2.9.0
+spotipy==2.22.1
 SQLAlchemy==1.2.6
 sqlparse==0.2.4
 # style50==2.6.2
